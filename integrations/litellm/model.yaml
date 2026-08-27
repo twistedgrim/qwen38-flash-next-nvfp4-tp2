@@ -1,0 +1,15 @@
+# Merge into LiteLLM's model_list. GX10_VLLM_API_KEY must already be injected.
+model_list:
+  - model_name: gx10-qwen3.8-flash-next
+    litellm_params:
+      model: openai/qwen3.8-flash-next-nvfp4
+      api_base: http://192.168.1.21:8888/v1
+      api_key: os.environ/GX10_VLLM_API_KEY
+      input_cost_per_token: 0
+      output_cost_per_token: 0
+    model_info:
+      mode: chat
+      max_input_tokens: 262144
+      supports_function_calling: true
+      supports_reasoning: true
+      supports_vision: false

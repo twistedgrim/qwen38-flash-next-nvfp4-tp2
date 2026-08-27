@@ -15,7 +15,7 @@ EOF
 
 printf 'Starting worker: transport=%s context=%s MTP=%s\n' \
   "$QWEN38_NCCL_TRANSPORT" "$QWEN38_CONTEXT_LENGTH" "$QWEN38_ENABLE_MTP"
-ssh_worker "'$WORKER_RECIPE_DIR/scripts/run-rank.sh' worker"
+ssh_worker "QWEN38_PORT='$PORT' '$WORKER_RECIPE_DIR/scripts/run-rank.sh' worker"
 
 worker_deadline=$((SECONDS + 60))
 until container_running_worker; do

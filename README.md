@@ -144,6 +144,31 @@ Any MTP promotion must pass:
 `QWEN38_MTP_ATTENTION_MODE=decode` is retained as a future experiment because a
 Spark Arena run used it, but it has not passed this recipe's correctness gates.
 
+## llama-swap and LiteLLM
+
+The optional routing assets add the normal shared-gateway path:
+
+```text
+client → LiteLLM gx10-qwen3.8-flash-next
+       → llama-swap qwen3.8-flash-next-nvfp4
+       → SGLang TP2 on the GX10 pair
+```
+
+- [`integrations/llama-swap/model.yaml`](integrations/llama-swap/model.yaml)
+  contains the lifecycle route. Its wrapper propagates llama-swap's dynamic
+  backend port to both TP ranks and keeps the command alive while serving.
+- [`integrations/litellm/model.yaml`](integrations/litellm/model.yaml) contains
+  the stable client alias. It references the existing injected
+  `GX10_VLLM_API_KEY`; no credential is stored here.
+- [`docs/ROUTING-2026-08-27.md`](docs/ROUTING-2026-08-27.md) records the
+  end-to-end llama-swap, LiteLLM, tools, and Pi validation.
+
+The Qwen route must be a member of the same exclusive llama-swap group as the
+other TP2 models. A first request can take several minutes because llama-swap
+must unload the active model and perform a full two-rank cold start. While
+llama-swap owns the workload, SGLang listens on a private dynamic port; `:30000`
+is the manual diagnostic path used only by direct `./qwen38 serve` launches.
+
 ## Rollbacks
 
 Use Socket transport without editing the recipe:
