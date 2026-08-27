@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+COMMAND="${1:-help}"
+[[ $# -eq 0 ]] || shift
+
+case "$COMMAND" in
+  doctor|download|serve|smoke|bench|status|stop|long-context|test)
+    exec "$ROOT/scripts/$COMMAND.sh" "$@"
+    ;;
+  help|-h|--help)
+    cat <<'EOF'
+Usage: ./qwen38 COMMAND [ARGS]
+
+Commands:
+  doctor       Validate both nodes, fabric, image, and model files
+  download     Pull the pinned image and download/synchronize the checkpoint
+  serve        Synchronize the recipe and start TP2; wait until ready
+  smoke        Test text, tools, replay, and four concurrent requests
+  bench        Measure streaming throughput at concurrency 1, 2, and 4
+  long-context Run deterministic retrieval canaries
+  status       Show containers, endpoint, cache capacity, and recent errors
+  stop         Remove only this recipe's containers on both nodes
+  test         Run local static recipe tests
+EOF
+    ;;
+  *)
+    echo "Unknown command: $COMMAND" >&2
+    exec "$0" help
+    ;;
+esac

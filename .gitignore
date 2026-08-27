@@ -1,0 +1,7 @@
+config.env
+patches/
+results/
+backups/
+__pycache__/
+*.pyc
+.DS_Store
