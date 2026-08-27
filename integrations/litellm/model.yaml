@@ -10,6 +10,7 @@ model_list:
     model_info:
       mode: chat
       max_input_tokens: 262144
+      max_output_tokens: 65536
       supports_function_calling: true
       supports_reasoning: true
       supports_vision: false
