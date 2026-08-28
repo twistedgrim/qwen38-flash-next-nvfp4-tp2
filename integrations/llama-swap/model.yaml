@@ -1,9 +1,10 @@
 # Merge this model and group member into the existing llama-swap config.
+# Replace /home/replace-me/src with the checkout location on the head node.
 models:
   qwen3.8-flash-next-nvfp4:
     name: Qwen 3.8 Flash-Next NVFP4 (GX10 TP2 via SGLang)
-    cmd: /home/therealgrim/src/qwen38-flash-next-nvfp4-tp2/integrations/llama-swap/run.sh ${PORT}
-    cmdStop: /home/therealgrim/src/qwen38-flash-next-nvfp4-tp2/qwen38 stop
+    cmd: /home/replace-me/src/qwen38-flash-next-nvfp4-tp2/integrations/llama-swap/run.sh ${PORT}
+    cmdStop: /home/replace-me/src/qwen38-flash-next-nvfp4-tp2/qwen38 stop
     proxy: http://127.0.0.1:${PORT}
     checkEndpoint: /health
     ttl: 14400

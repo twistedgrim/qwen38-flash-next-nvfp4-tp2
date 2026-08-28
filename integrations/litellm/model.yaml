@@ -1,9 +1,10 @@
-# Merge into LiteLLM's model_list. GX10_VLLM_API_KEY must already be injected.
+# Merge into LiteLLM's model_list. Inject GX10_LLAMA_SWAP_BASE_URL and
+# GX10_VLLM_API_KEY into the LiteLLM deployment; no credentials belong here.
 model_list:
   - model_name: gx10-qwen3.8-flash-next
     litellm_params:
       model: openai/qwen3.8-flash-next-nvfp4
-      api_base: http://192.168.1.21:8888/v1
+      api_base: os.environ/GX10_LLAMA_SWAP_BASE_URL
       api_key: os.environ/GX10_VLLM_API_KEY
       timeout: 900
       input_cost_per_token: 0

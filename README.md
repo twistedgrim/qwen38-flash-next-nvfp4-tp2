@@ -158,8 +158,9 @@ client → LiteLLM gx10-qwen3.8-flash-next
   contains the lifecycle route. Its wrapper propagates llama-swap's dynamic
   backend port to both TP ranks and keeps the command alive while serving.
 - [`integrations/litellm/model.yaml`](integrations/litellm/model.yaml) contains
-  the stable client alias. It references the existing injected
-  `GX10_VLLM_API_KEY`; no credential is stored here.
+  the stable client alias. It references the injected
+  `GX10_LLAMA_SWAP_BASE_URL` and `GX10_VLLM_API_KEY`; no deployment-specific
+  address or credential is stored there.
 - [`docs/ROUTING-2026-08-27.md`](docs/ROUTING-2026-08-27.md) records the
   end-to-end llama-swap, LiteLLM, tools, and Pi validation.
 
@@ -191,3 +192,10 @@ independent settings so each can be tested and reverted separately.
 `config.env`, generated patches, benchmark results, credentials, model weights,
 and caches are ignored. Do not add Hugging Face tokens, SSH keys, API keys, or
 host-specific protected environment files to this repository.
+
+## Credits and license
+
+Repository-local scripts and documentation are available under the
+[MIT License](LICENSE). Model weights, the generated SGLang overlay, container
+images, CUDA/NCCL, and other upstream components retain their own terms. See
+[CREDITS.md](CREDITS.md) for attribution and license boundaries.
