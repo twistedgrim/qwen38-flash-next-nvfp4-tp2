@@ -5,6 +5,7 @@ model_list:
       model: openai/qwen3.8-flash-next-nvfp4
       api_base: http://192.168.1.21:8888/v1
       api_key: os.environ/GX10_VLLM_API_KEY
+      timeout: 900
       input_cost_per_token: 0
       output_cost_per_token: 0
     model_info:

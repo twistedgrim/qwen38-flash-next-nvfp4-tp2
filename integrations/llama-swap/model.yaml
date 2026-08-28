@@ -6,7 +6,7 @@ models:
     cmdStop: /home/therealgrim/src/qwen38-flash-next-nvfp4-tp2/qwen38 stop
     proxy: http://127.0.0.1:${PORT}
     checkEndpoint: /health
-    ttl: 3600
+    ttl: 14400
     unloadTimeout: 60
     capabilities:
       context: 262144
